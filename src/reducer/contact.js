@@ -1,6 +1,7 @@
 import {ADD_CONTACT, GET_DATA} from "../action/actionTypes";
 
 export default (state={}, action) => {
+    debugger;
     switch(action.type)
     {
         case ADD_CONTACT:

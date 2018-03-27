@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link,Redirect } from "react-router-dom";
 
 import {todo, contact} from './action';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import home from './component/home';
+import Home from './component/home';
 
 class App extends Component {
     constructor(props)
@@ -42,17 +42,20 @@ class App extends Component {
 
     componentDidMount()
     {
+        debugger;
         this.props.action.todo.addTodo("Hello Vishnu");
     }
 
     componentWillReceiveProps(nextProps)
     {
+        debugger;
         console.log("old : ", this.props.contact);
         console.log("new : ", nextProps.contact);
         console.log("data : ", nextProps.contact.data);
     }
 
-    Home = () =><home />;
+
+    Home = () => <Home />;
 
 
     About = () =>
@@ -74,6 +77,11 @@ class App extends Component {
         </div>;
 
   render() {
+    const Public=({...props})=> {
+          debugger;
+          return (false)?<Route {...props} />:<Redirect to={'/'}/>
+      };
+
     return (
         <React.Fragment>
             <header className="App-header">
@@ -84,6 +92,9 @@ class App extends Component {
             <Router>
                 <div>
                     <ul>
+                        <li>
+                            <Link to="/login">Login</Link>
+                        </li>
                         <li>
                             <Link to="/">Home</Link>
                         </li>
@@ -97,9 +108,10 @@ class App extends Component {
 
                     <hr />
 
+                    <Public exact path="/login" component={this.About} />
                     <Route exact path="/" component={this.Home} />
-                    <Route path="/about" component={this.About} />
-                    <Route path="/topics" component={this.Topics} />
+                    <Route exact path="/about" component={this.About} />
+                    <Route exact path="/topics" component={this.Topics} />
                 </div>
             </Router>
         </React.Fragment>
@@ -108,6 +120,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
+    debugger;
     return {
         todo:state.todo,
         contact:state.contact
@@ -115,6 +128,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispachToProps = (dispach) => {
+    debugger;
     return {
         action:{
             todo:bindActionCreators(todo, dispach),
@@ -124,5 +138,3 @@ const mapDispachToProps = (dispach) => {
 };
 
 export default connect(mapStateToProps, mapDispachToProps)(App);
-
-

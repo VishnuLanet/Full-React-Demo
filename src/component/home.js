@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-export class home extends Component
-{
-    render(){
+export default class home extends Component
+{   render(){
+        debugger;
         return(
             <div>
                 <h2>Home</h2>

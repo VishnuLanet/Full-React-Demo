@@ -1,4 +1,5 @@
 export default function (state={}, action) {
+    debugger;
     switch(action.type)
     {
         case "ADD_TODO":
